@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lista de Codigos</ion-title>
+    <ion-buttons start>
+      <button ion-button color="light" (click)="addCode()">Agregar Codigo</button>
+      <button ion-button color="light" (click)="downloadCSV()">Descargar Codigos</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ngx-datatable class="fullscreen"
+                   [rows]="codes"
+                   [loadingIndicator]="loadingIndicator"
+                   [columns]="columns"
+                   [columnMode]="'force'"
+                   [headerHeight]="40"
+                   [summaryRow]="true"
+                   [summaryPosition]="'bottom'"
+                   [footerHeight]="40"
+                   [limit]="limit"
+                   [rowHeight]="'auto'"
+                   [reorderable]="reorderable"
+                   [ngClass]="tablestyle"
+                   [sortType]="'multi'" >
+      <ngx-datatable-column prop="code">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+          <span class="datatable-header-cell-label draggable" (click)="sort()">Codigo</span>
+        </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="createDate">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Fecha de Creacion</span>
+            </span>
+        </ng-template>
+        <ng-template let-column="column" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label ">{{value.seconds * 1000 | date: 'MM/dd/yyyy, h:mm a'}}</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="activateDate">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Fecha de Activación</span>
+            </span>
+        </ng-template>
+        <ng-template let-column="column" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label ">{{value.seconds * 1000 | date: 'MM/dd/yyyy, h:mm a'}}</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="uidUser">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Usuario</span>
+            </span>
+        </ng-template>
+        <ng-template let-column="column" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label ">{{value | userEmail | async }}</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="primary"><ion-icon name="menu"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab><ion-icon name="add" (click)="goToGenerate()" ></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

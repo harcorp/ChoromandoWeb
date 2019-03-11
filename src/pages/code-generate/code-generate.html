@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cerrar</button>
+    </ion-buttons>
+    <ion-title>Generador Codigos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="!generated">
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Cantidad</ion-label>
+          <ion-input [(ngModel)]="quantity" type="number"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button block ion-button (click)="generateCodes()">Generar</button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="generated">
+    <ion-card-content>
+      <button ion-button block color="primary" (click)="downloadCSV()">Descargar CSV codigos generados</button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

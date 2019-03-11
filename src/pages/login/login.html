@@ -1,0 +1,27 @@
+<ion-content class="background">
+  <div class="login">
+    <form [formGroup]="loginForm" (submit)="login()" novalidate>
+      <input type="email" placeholder="Correo Electrónico" formControlName="email">
+      <div class="error" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty"> Correo Electrónico no valido.</div>
+      <input type="password" placeholder="Contraseña" formControlName="password">
+      <div class="error" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty"> Contraseña debe contener entre 6 y 25 carácteres.</div>
+      <img class="ingresar" src="assets/imgs/ingresar.png" (click)="login()" />
+    </form>
+    <ion-grid class="social-buttons">
+      <ion-row>
+        <ion-col>
+          <img src="assets/imgs/google-button.png" (click)="loginGoogle()" />
+        </ion-col>
+        <ion-col>
+          <img src="assets/imgs/facebook-button.png" (click)="loginFacebook()" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="register" (click)="goToRegister()">
+      Crear una cuenta
+    </div>
+    <a class="register codigo" href="#">
+      ¿Aun no tienes un codigo?
+    </a>
+  </div>
+</ion-content>

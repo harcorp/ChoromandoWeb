@@ -1,0 +1,71 @@
+<ion-content class="background">
+  <div class="registro">
+    <form [formGroup]="registerFormProv" class="providerForm" (submit)="registerFormProvAction()" novalidate *ngIf="providerID !== 'password'">
+      <input type="text" placeholder="Nombre Completo" formControlName="displayName">
+      <input type="text" placeholder="Codigo" formControlName="code">
+    </form>
+    <form [formGroup]="registerFormPass" novalidate *ngIf="providerID === 'password'">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <input type="text" placeholder="Nombre Completo*" formControlName="displayName">
+            <ng-container *ngFor="let validation of account_validation_messages.displayName">
+              <div class="error-message" *ngIf="registerFormPass.get('displayName').hasError(validation.type) && (registerFormPass.get('displayName').dirty || registerFormPass.get('displayName').touched)">
+                {{validation.message}}
+              </div>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+          <ion-col>
+            <input type="email" placeholder="Correo Electrónico*" formControlName="email">
+            <ng-container *ngFor="let validation of account_validation_messages.email">
+              <div class="error-message" *ngIf="registerFormPass.get('email').hasError(validation.type) && (registerFormPass.get('email').dirty || registerFormPass.get('email').touched)">
+                {{validation.message}}
+              </div>
+            </ng-container>
+          </ion-col>
+          <ion-col>
+            <input type="text" placeholder="Codigo*" formControlName="code">
+            <ng-container *ngFor="let validation of account_validation_messages.code">
+              <div class="error-message" *ngIf="registerFormPass.get('code').hasError(validation.type) && (registerFormPass.get('code').dirty || registerFormPass.get('code').touched)">
+                {{validation.message}}
+              </div>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+        <ion-row formGroupName="matching_passwords">
+          <ion-col>
+            <input type="password" placeholder="Contraseña*" formControlName="password">
+            <ng-container *ngFor="let validation of account_validation_messages.password">
+              <div class="error-message" *ngIf="registerFormPass.get('matching_passwords').get('password').hasError(validation.type) && (registerFormPass.get('matching_passwords').get('password').dirty || registerFormPass.get('matching_passwords').get('password').touched)">
+                {{validation.message}}
+              </div>
+            </ng-container>
+          </ion-col>
+          <ion-col>
+            <input type="password" placeholder="Confirmar Contraseña*" formControlName="confirm_password">
+            <ng-container *ngFor="let validation of account_validation_messages.confirm_password">
+              <div class="error-message" *ngIf="(registerFormPass.get('matching_passwords').get('confirm_password').hasError(validation.type) || registerFormPass.get('matching_passwords').hasError(validation.type)) && (registerFormPass.get('matching_passwords').get('confirm_password').dirty || registerFormPass.get('matching_passwords').get('confirm_password').touched)">
+                {{validation.message}}
+              </div>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+    <ion-grid class="social-buttons">
+      <ion-row>
+        <ion-col class="tyc">
+          TÉRMINOS Y CONDICIONES
+        </ion-col>
+        <ion-col *ngIf="providerID === 'password'">
+          <img src="assets/imgs/ingresar.png" (click)="registerFormPassAction()" />
+        </ion-col>
+        <ion-col *ngIf="providerID !== 'password'">
+          <img class="ingresar" src="assets/imgs/ingresar.png" (click)="registerFormProvAction()" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

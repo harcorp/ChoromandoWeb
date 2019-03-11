@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cerrar</button>
+    </ion-buttons>
+    <ion-title>Editar Usuario</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="editUser" novalidate>
+        <ion-list>
+
+          <ion-item>
+            <ion-label floating>Nombres</ion-label>
+            <ion-input type="text" formControlName="displayName"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let validation of account_validation_messages.displayName">
+            <div class="error-message" *ngIf="editUser.get('displayName').hasError(validation.type) && (editUser.get('displayName').dirty || editUser.get('displayName').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+
+          <ion-item>
+            <ion-label floating>Correo Electrónico</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let validation of account_validation_messages.email">
+            <div class="error-message" *ngIf="editUser.get('email').hasError(validation.type) && (editUser.get('email').dirty || editUser.get('email').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+
+        </ion-list>
+        <div padding>
+          <button ion-button full color="primary" [disabled]="!editUser.valid" (click)="submit()">Guardar</button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

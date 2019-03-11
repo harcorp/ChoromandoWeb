@@ -1,0 +1,76 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cerrar</button>
+    </ion-buttons>
+    <ion-title>Agregar Usuario</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="registerForm" novalidate>
+        <ion-list>
+
+          <ion-item>
+            <ion-label floating>Nombres</ion-label>
+            <ion-input type="text" formControlName="displayName"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let validation of account_validation_messages.displayName">
+            <div class="error-message" *ngIf="registerForm.get('displayName').hasError(validation.type) && (registerForm.get('displayName').dirty || registerForm.get('displayName').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+
+          <ion-item>
+            <ion-label floating>Correo Electrónico</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let validation of account_validation_messages.email">
+            <div class="error-message" *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+
+          <ion-item>
+            <ion-label floating>Asignar Codigo</ion-label>
+            <ion-select formControlName="uidCode">
+              <ion-option *ngFor="let code of codigos | async" [value]="code.id">{{ code.code }}</ion-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-list>
+        <ion-list formGroupName="matching_passwords">
+          <ion-item>
+            <ion-label floating>Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let validation of account_validation_messages.password">
+            <div class="error-message" *ngIf="registerForm.get('matching_passwords').get('password').hasError(validation.type) && (registerForm.get('matching_passwords').get('password').dirty || registerForm.get('matching_passwords').get('password').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+
+          <ion-item>
+            <ion-label floating>Confirmar Contraseña</ion-label>
+            <ion-input type="password" formControlName="confirm_password"></ion-input>
+          </ion-item>
+          <ng-container *ngFor="let validation of account_validation_messages.confirm_password">
+            <div class="error-message" *ngIf="(registerForm.get('matching_passwords').get('confirm_password').hasError(validation.type) || registerForm.get('matching_passwords').hasError(validation.type)) && (registerForm.get('matching_passwords').get('confirm_password').dirty || registerForm.get('matching_passwords').get('confirm_password').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+
+        </ion-list>
+
+        <div padding>
+          <button ion-button full color="primary" [disabled]="!registerForm.valid" (click)="submit()">Crear</button>
+        </div>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

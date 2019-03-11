@@ -1,0 +1,10 @@
+//Constants for getting type references
+export const CODE_ADD_PAGE = 'CodeAddPage';
+export const USER_ADD_PAGE = 'UserAddPage';
+export const USER_LIST_PAGE = 'UserListPage';
+export const CODE_LIST_PAGE = 'CodeListPage';
+export const CODE_GENERATE_PAGE = 'CodeGeneratePage';
+export const USER_EDIT_PAGE = 'UserEditPage';
+export const LOGIN_PAGE = 'LoginPage';
+export const USER_REGISTER_PAGE = 'UserRegisterPage';
+export const UNITY_PAGE = 'UnityPage';

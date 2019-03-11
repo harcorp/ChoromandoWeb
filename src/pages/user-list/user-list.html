@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lista de Usuarios</ion-title>
+    <ion-buttons start>
+      <button ion-button color="light" (click)="addUser()">Agregar Usuario</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ngx-datatable class="fullscreen" [ngClass]="tablestyle" [rows]="users" [rowHeight]="60" [columnMode]="'force'" [sortType]="'multi'" [reorderable]="false">
+      <ngx-datatable-column name="displayName">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Nombres</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="registerDate">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Fecha de Registro</span>
+            </span>
+        </ng-template>
+        <ng-template let-column="column" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label ">{{value.seconds * 1000 | date: 'MM/dd/yyyy, h:mm a'}}</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="updateDate">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Actualización</span>
+            </span>
+        </ng-template>
+        <ng-template let-column="column" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label ">{{value.seconds * 1000 | date: 'MM/dd/yyyy, h:mm a'}}</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="uidCode">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable" (click)="sort()">Codigo Usado</span>
+            </span>
+        </ng-template>
+        <ng-template let-column="column" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label ">{{value | codeName | async }}</span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="uid">
+        <ng-template let-column="column" ngx-datatable-header-template let-sort="sortFn">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label draggable">Acciones</span>
+            </span>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template let-value="value">
+            <span class="datatable-header-cell-wrapper">
+              <span class="datatable-header-cell-label "><button ion-button (click)="editUser(value)">Editar</button> </span>
+              <span class="datatable-header-cell-label "><button ion-button color="danger" (click)="deleteUser(value)">Eliminar</button> </span>
+            </span>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </ion-card>
+</ion-content>

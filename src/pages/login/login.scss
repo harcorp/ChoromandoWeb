@@ -1,0 +1,64 @@
+page-login {
+  .background {
+    background: url('../../assets/imgs/fondo.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .register {
+    font-family: 'Neutra Display Drafting Alt', sans-serif;
+    color: color($colors, coffee);
+    text-decoration: underline color($colors, coffee);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    &.codigo {
+      font-size: .7em;
+      margin-top: 10px;
+      display: block;
+    }
+  }
+  .login {
+    text-align: center;
+    background: url('../../assets/imgs/fondo-login.png') no-repeat center center;
+    background-size: cover;
+    margin: 30px auto;
+    width: 700px;
+    height: 503px;
+    position:absolute; /*it can be fixed too*/
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width:100%;
+    max-height:100%;
+    overflow: hidden;
+    padding: 190px 80px 100px 120px;
+    input {
+      width: 100%;
+      background-color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 1.2rem;
+      margin: 5px;
+      color: color($colors, coffee);
+    }
+    .error {
+      font-size: 1rem;
+      color: red;
+      margin: 0 5px;
+    }
+    .ingresar {
+      width: 130px;
+      margin-top: 5px;
+    }
+    .social-buttons {
+      text-align: center;
+      img {
+        height: 40px;
+      }
+    }
+  }
+}
