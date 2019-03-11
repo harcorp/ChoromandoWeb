@@ -7,4 +7,5 @@ export const CODE_GENERATE_PAGE = 'CodeGeneratePage';
 export const USER_EDIT_PAGE = 'UserEditPage';
 export const LOGIN_PAGE = 'LoginPage';
 export const USER_REGISTER_PAGE = 'UserRegisterPage';
+export const PASSWORD_FORGOT_PAGE = 'PasswordForgotPage';
 export const UNITY_PAGE = 'UnityPage';

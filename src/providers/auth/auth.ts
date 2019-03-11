@@ -33,6 +33,10 @@ export class AuthProvider {
     ));
   }
 
+  forgotPassword(email: string): Promise<any> {
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
 
   loginEmail(email: string, password: string): Promise<UserCredential> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);

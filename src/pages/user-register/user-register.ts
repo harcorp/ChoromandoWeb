@@ -25,6 +25,9 @@ export class UserRegisterPage {
   usuario: any;
   providerID: string;
   user: User;
+  tycBool = false;
+  showInfo = false;
+
   account_validation_messages = {
     'displayName': [
       { type: 'required', message: 'Tu nombre es requerido'}
@@ -90,29 +93,34 @@ export class UserRegisterPage {
   }
 
   registerFormProvAction() {
-    if (this.registerFormProv.valid) {
-      this.notifyProv.showLoader('Registrando...');
-      let timeStamp = new Date();
-      this.user = {
-        role: 1,
-        email: this.usuario.email,
-        displayName: this.registerFormProv.value.displayName,
-        uid: this.usuario.uid,
-        registerDate: timeStamp,
-        updateDate: timeStamp
-      };
-      let valores = {
-        usuario: this.user,
-        codigo: this.registerFormProv.value.code
-      };
-      this.authProv.registerUser(valores).then(res => {
-        this.navCtrl.setRoot(UNITY_PAGE);
-        this.notifyProv.showToast('Registro Completo');
-        this.notifyProv.dismissLoader();
-      });
+    if (this.tycBool) {
+      if (this.registerFormProv.valid) {
+        this.notifyProv.showLoader('Registrando...');
+        let timeStamp = new Date();
+        this.user = {
+          role: 1,
+          email: this.usuario.email,
+          displayName: this.registerFormProv.value.displayName,
+          uid: this.usuario.uid,
+          registerDate: timeStamp,
+          updateDate: timeStamp
+        };
+        let valores = {
+          usuario: this.user,
+          codigo: this.registerFormProv.value.code
+        };
+        this.authProv.registerUser(valores).then(res => {
+          this.navCtrl.setRoot(UNITY_PAGE);
+          this.notifyProv.showToast('Registro Completo');
+          this.notifyProv.dismissLoader();
+        });
+      } else {
+        this.notifyProv.showToast('Hay campos sin completar.');
+      }
     } else {
-      this.notifyProv.showToast('Hay campos sin completar.');
+      this.notifyProv.showToast('Debe aceptar los terminos y condiciones para poder registrarse.');
     }
+
   }
 
   get password() { return this.registerFormPass.get('matching_passwords').get('password'); }
@@ -121,58 +129,66 @@ export class UserRegisterPage {
   get code() { return this.registerFormPass.get('code'); }
 
   registerFormPassAction() {
-    if (this.registerFormPass.valid) {
-      this.notifyProv.showLoader('Registrando...');
-      this.afs.collection<Code>('codes', ref => ref.where('code', '==', this.code.value)).get().subscribe(res => {
-        if (res.size === 1) {
-          res.forEach(code => {
-            let codigo = code.data() as Code;
-            let idCodigo = code.id;
-            if (codigo.uidUser === null) {
-              this.authProv.createUserWithEmail(this.email.value, this.password.value).then(resultado => {
-                let newUser: User = {
-                  uid: resultado.user.uid,
-                  displayName: this.displayName.value,
-                  registerDate: new Date(),
-                  updateDate: new Date(),
-                  uidCode: idCodigo,
-                  role: 1,
-                  email: this.email.value
-                };
-                let batch = this.afs.firestore.batch();
-                let userDoc = this.afs.firestore.collection('users').doc(resultado.user.uid);
-                batch.set(userDoc, newUser);
-                let codeDoc = this.afs.firestore.collection('codes').doc(idCodigo);
-                batch.set(codeDoc, {
-                  uidUser: resultado.user.uid,
-                  updateDate: new Date(),
-                  activateDate: new Date(),
-                }, { merge: true });
-                batch.commit().then(r => {
-                  this.notifyProv.showToast('Registrado correctamente');
-                  this.navCtrl.setRoot(UNITY_PAGE);
+    if (this.tycBool) {
+      if (this.registerFormPass.valid) {
+        this.notifyProv.showLoader('Registrando...');
+        this.afs.collection<Code>('codes', ref => ref.where('code', '==', this.code.value)).get().subscribe(res => {
+          if (res.size === 1) {
+            res.forEach(code => {
+              let codigo = code.data() as Code;
+              let idCodigo = code.id;
+              if (codigo.uidUser === null) {
+                this.authProv.createUserWithEmail(this.email.value, this.password.value).then(resultado => {
+                  let newUser: User = {
+                    uid: resultado.user.uid,
+                    displayName: this.displayName.value,
+                    registerDate: new Date(),
+                    updateDate: new Date(),
+                    uidCode: idCodigo,
+                    role: 1,
+                    email: this.email.value
+                  };
+                  let batch = this.afs.firestore.batch();
+                  let userDoc = this.afs.firestore.collection('users').doc(resultado.user.uid);
+                  batch.set(userDoc, newUser);
+                  let codeDoc = this.afs.firestore.collection('codes').doc(idCodigo);
+                  batch.set(codeDoc, {
+                    uidUser: resultado.user.uid,
+                    updateDate: new Date(),
+                    activateDate: new Date(),
+                  }, { merge: true });
+                  batch.commit().then(r => {
+                    this.notifyProv.showToast('Registrado correctamente');
+                    this.navCtrl.setRoot(UNITY_PAGE);
+                  }).catch(error => {
+                    this.notifyProv.showToast('No se pudo registrar. Contacte con servicio al cliente');
+                    this.notifyProv.dismissLoader();
+                  });
                 }).catch(error => {
-                  this.notifyProv.showToast('No se pudo registrar. Contacte con servicio al cliente');
-                  this.notifyProv.dismissLoader();
+                  this.authProv.handleError(error);
                 });
-              }).catch(error => {
-                this.authProv.handleError(error);
-              });
-            } else {
-              this.notifyProv.showToast('Este codigo ya se encuentra en uso por otro usuario.');
-              this.notifyProv.dismissLoader();
-            }
-          })
-        } else if (res.size === 0) {
-          this.notifyProv.showToast('Este codigo no existe o no es valido. Intenta de nuevo.');
-          this.notifyProv.dismissLoader();
-        } else {
-          this.notifyProv.showToast('Error de codigo contacte con servicio al cliente.');
-          this.notifyProv.dismissLoader();
-        }
-      });
+              } else {
+                this.notifyProv.showToast('Este codigo ya se encuentra en uso por otro usuario.');
+                this.notifyProv.dismissLoader();
+              }
+            })
+          } else if (res.size === 0) {
+            this.notifyProv.showToast('Este codigo no existe o no es valido. Intenta de nuevo.');
+            this.notifyProv.dismissLoader();
+          } else {
+            this.notifyProv.showToast('Error de codigo contacte con servicio al cliente.');
+            this.notifyProv.dismissLoader();
+          }
+        });
+      } else {
+        this.notifyProv.showToast('Formulario incompleto.');
+      }
     } else {
-      this.notifyProv.showToast('Formulario incompleto.');
+      this.notifyProv.showToast('Debe aceptar los terminos y condiciones para poder registrarse.');
     }
+  }
+
+  openInfo() {
+    this.showInfo = !this.showInfo;
   }
 }

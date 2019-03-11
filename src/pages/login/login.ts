@@ -5,7 +5,7 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import {NotifyProvider} from "../../providers/notify/notify";
 import {AuthProvider} from "../../providers/auth/auth";
 import {EmailValidator} from "../../tools/email-validator";
-import {USER_LIST_PAGE, USER_REGISTER_PAGE} from "../pages.constants";
+import {PASSWORD_FORGOT_PAGE, USER_LIST_PAGE, USER_REGISTER_PAGE} from "../pages.constants";
 
 @IonicPage({
   segment: 'ingreso'
@@ -97,6 +97,11 @@ export class LoginPage {
   goToRegister() {
     this.notify.showLoader('Cargando...');
     this.navCtrl.setRoot(USER_REGISTER_PAGE);
+  }
+
+  goToForgot() {
+    this.notify.showLoader('Cargando...');
+    this.navCtrl.setRoot(PASSWORD_FORGOT_PAGE);
   }
 
 }

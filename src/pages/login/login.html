@@ -1,5 +1,7 @@
 <ion-content class="background">
+
   <div class="login">
+    <span class="text">Por favor ingrese su usuario y contraseña</span>
     <form [formGroup]="loginForm" (submit)="login()" novalidate>
       <input type="email" placeholder="Correo Electrónico" formControlName="email">
       <div class="error" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty"> Correo Electrónico no valido.</div>
@@ -7,20 +9,24 @@
       <div class="error" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty"> Contraseña debe contener entre 6 y 25 carácteres.</div>
       <img class="ingresar" src="assets/imgs/ingresar.png" (click)="login()" />
     </form>
-    <ion-grid class="social-buttons">
-      <ion-row>
-        <ion-col>
+    <span class="text">O inicie sesion a traves de:</span>
+    <ion-grid class="social-buttons" no-padding>
+      <ion-row no-padding>
+        <ion-col no-padding>
           <img src="assets/imgs/google-button.png" (click)="loginGoogle()" />
         </ion-col>
-        <ion-col>
+        <ion-col no-padding>
           <img src="assets/imgs/facebook-button.png" (click)="loginFacebook()" />
         </ion-col>
       </ion-row>
     </ion-grid>
     <div class="register" (click)="goToRegister()">
-      Crear una cuenta
+      ¿No tienes cuenta?: Regístrate aquí.
     </div>
-    <a class="register codigo" href="#">
+    <div class="register codigo " (click)="goToForgot()">
+      ¿Olvido su contraseña?
+    </div>
+    <a class="register codigo" href="http://choromando.com/producto/libro-interactivo/" target="_blank">
       ¿Aun no tienes un codigo?
     </a>
   </div>
