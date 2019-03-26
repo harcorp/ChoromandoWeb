@@ -17,4 +17,11 @@ page-unity {
   .webgl-content .footer .webgl-logo {background-image: url('../assets/TemplateData/webgl-logo.png'); width: 204px; float: left;}
   .webgl-content .footer .title {margin-right: 10px; float: right;}
   .webgl-content .footer .fullscreen {background-image: url('../assets/TemplateData/fullscreen.png'); width: 38px; float: right;}
+
+  ion-header {
+    img {
+      height: 60px;
+      margin-top: 5px;
+    }
+  }
 }
