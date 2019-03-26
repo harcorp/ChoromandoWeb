@@ -1,33 +1,39 @@
 <ion-content class="background">
 
   <div class="login">
-    <span class="text">Por favor ingrese su usuario y contraseña</span>
+    <span class="text">Por favor ingresa tu usuario y contraseña</span>
     <form [formGroup]="loginForm" (submit)="login()" novalidate>
       <input type="email" placeholder="Correo Electrónico" formControlName="email">
-      <div class="error" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty"> Correo Electrónico no valido.</div>
+      <div class="error" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty"> Correo Electrónico
+        no valido.
+      </div>
       <input type="password" placeholder="Contraseña" formControlName="password">
-      <div class="error" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty"> Contraseña debe contener entre 6 y 25 carácteres.</div>
-      <img class="ingresar" src="assets/imgs/ingresar.png" (click)="login()" />
+      <div class="error" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty">La Contraseña
+        debe contener entre 6 y 25 carácteres.
+      </div>
+      <ion-row>
+
+        <ion-col col-4 class="register codigo">
+          <div (click)="goToForgot()">
+            ¿Olvidaste tu contraseña?
+          </div>
+        </ion-col>
+        <ion-col col-8 text-left><img class="ingresar" src="assets/imgs/ingresar.png" (click)="login()"/></ion-col>
+      </ion-row>
     </form>
-    <span class="text">O inicie sesion a traves de:</span>
+    <span class="text">O inicia sesión a través de:</span>
     <ion-grid class="social-buttons" no-padding>
       <ion-row no-padding>
-        <ion-col no-padding>
-          <img src="assets/imgs/google-button.png" (click)="loginGoogle()" />
+        <ion-col no-padding text-right>
+          <img src="assets/imgs/google-button.png" (click)="loginGoogle()"/>
         </ion-col>
-        <ion-col no-padding>
-          <img src="assets/imgs/facebook-button.png" (click)="loginFacebook()" />
+        <ion-col no-padding text-left>
+          <img src="assets/imgs/facebook-button.png" (click)="loginFacebook()"/>
         </ion-col>
       </ion-row>
     </ion-grid>
     <div class="register" (click)="goToRegister()">
       ¿No tienes cuenta?: Regístrate aquí.
     </div>
-    <div class="register codigo " (click)="goToForgot()">
-      ¿Olvido su contraseña?
-    </div>
-    <a class="register codigo" href="http://choromando.com/producto/libro-interactivo/" target="_blank">
-      ¿Aun no tienes un codigo?
-    </a>
   </div>
 </ion-content>
