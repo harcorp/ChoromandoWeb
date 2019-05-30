@@ -4,9 +4,10 @@
 "dataUrl": "Choromando.data.unityweb",
 "wasmCodeUrl": "Choromando.wasm.code.unityweb",
 "wasmFrameworkUrl": "Choromando.wasm.framework.unityweb",
-"TOTAL_MEMORY": 1073741824,
+"TOTAL_MEMORY": 268435456,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
 "splashScreenStyle": "Light",
-"backgroundColor": "#FFFFFF"
+"backgroundColor": "#FFFFFF",
+"cacheControl": {"default": "must-revalidate"}
 }
