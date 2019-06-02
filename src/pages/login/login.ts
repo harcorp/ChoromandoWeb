@@ -58,6 +58,7 @@ export class LoginPage {
       this.authService.loginEmail(this.email.value, this.password.value)
         .then(authData => {
         }).catch(error => {
+          this.authService.handleError(error);
         this.notify.dismissLoader();
       });
     } else {

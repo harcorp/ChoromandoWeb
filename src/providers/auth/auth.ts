@@ -115,6 +115,7 @@ export class AuthProvider {
   }
 
   public handleError(error):void {
+    console.log(error);
     let err = null;
     if (error.error) {
       err = error.error.error
@@ -137,8 +138,14 @@ export class AuthProvider {
       case 'auth/email-already-exists':
         error = 'El correo electrónico que ingreso ya esta registrado';
         break;
+      case 'auth/user-not-found':
+        error = 'El usuario no esta registrado.';
+        break;
       case 'auth/email-already-in-use':
         error = 'El correo electrónico que ingreso ya esta registrado';
+        break;
+      case 'auth/wrong-password':
+        error = 'La contraseña no es valida.';
         break;
       case 'auth/docRegister':
         error = 'Hay un usuario con ese numero de identificación registrado';
