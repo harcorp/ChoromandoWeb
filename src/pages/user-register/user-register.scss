@@ -19,6 +19,17 @@ page-user-register {
     }
   }
 
+  .link {
+    display: block;
+    position: absolute;
+    width: 31px;
+    height: 30px;
+    top: 127px;
+    right: 99px;
+    z-index: 100;
+    cursor: pointer;
+  }
+
   .registro {
     .providerForm {
       margin-top: 60px;

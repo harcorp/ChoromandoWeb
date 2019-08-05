@@ -33,7 +33,7 @@ export class UserRegisterPage {
       { type: 'required', message: 'Tu nombre es requerido'}
     ],
     'code': [
-      { type: 'required', message: 'El codigo es requerido'}
+      { type: 'required', message: 'El código es requerido'}
     ],
     'email': [
       { type: 'required', message: 'Correo Electronico es requerido' },
@@ -168,15 +168,15 @@ export class UserRegisterPage {
                   this.authProv.handleError(error);
                 });
               } else {
-                this.notifyProv.showToast('Este codigo ya se encuentra en uso por otro usuario.');
+                this.notifyProv.showToast('Este código ya se encuentra en uso por otro usuario.');
                 this.notifyProv.dismissLoader();
               }
             })
           } else if (res.size === 0) {
-            this.notifyProv.showToast('Este codigo no existe o no es valido. Intenta de nuevo.');
+            this.notifyProv.showToast('Este código no existe o no es valido. Intenta de nuevo.');
             this.notifyProv.dismissLoader();
           } else {
-            this.notifyProv.showToast('Error de codigo contacte con servicio al cliente.');
+            this.notifyProv.showToast('Error de código contacte con servicio al cliente.');
             this.notifyProv.dismissLoader();
           }
         });

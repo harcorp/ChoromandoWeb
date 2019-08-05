@@ -1,6 +1,7 @@
 <ion-content class="background">
   <div class="info-frame" (click)="openInfo()" *ngIf="showInfo">
     <img src="/assets/imgs/informacion.png" alt="Información">
+    <a href="http://choromando.com/producto/libro-interactivo/" target="_blank" class="link"></a>
   </div>
   <div class="registro">
     <form [formGroup]="registerFormProv" class="providerForm" (submit)="registerFormProvAction()" novalidate
@@ -8,7 +9,7 @@
       <input type="text" placeholder="Nombre Completo" formControlName="displayName">
       <ion-row>
         <ion-col col-10 no-padding no-margin>
-          <input type="text" placeholder="Codigo*" formControlName="code">
+          <input type="text" placeholder="Código*" formControlName="code">
           <ng-container *ngFor="let validation of account_validation_messages.code">
             <div class="error-message"
                  *ngIf="registerFormPass.get('code').hasError(validation.type) && (registerFormPass.get('code').dirty || registerFormPass.get('code').touched)">
@@ -47,7 +48,7 @@
           <ion-col>
             <ion-row>
               <ion-col col-10 no-padding no-margin>
-                <input type="text" placeholder="Codigo*" formControlName="code">
+                <input type="text" placeholder="Código*" formControlName="code">
                 <ng-container *ngFor="let validation of account_validation_messages.code">
                   <div class="error-message"
                        *ngIf="registerFormPass.get('code').hasError(validation.type) && (registerFormPass.get('code').dirty || registerFormPass.get('code').touched)">
